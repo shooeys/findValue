@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Sheets API Example</title>
+</head>
+<body>
+  <h1>Value from Spreadsheet:</h1>
+  <div id="valueContainer"></div>
+
+  <script>
+    function getValueFromSpreadsheet() {
+      fetch('https://docs.google.com/spreadsheets/d/1RoH5p131DgD7sh3T7ehgScizzrzMgBMqo7_YWxIPQHs/edit#gid=1892219054')
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          var json = JSON.parse(text.substr(47).slice(0, -2));
+          var value = json.table.rows[308].c[1].v;
+          document.getElementById('valueContainer').innerText = value;
+        })
+        .catch(function(error) {
+          console.error('Error retrieving value from spreadsheet:', error);
+        });
+    }
+
+    getValueFromSpreadsheet();
+  </script>
+</body>
+</html>
